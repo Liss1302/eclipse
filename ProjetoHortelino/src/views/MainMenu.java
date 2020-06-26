@@ -23,7 +23,7 @@ public class MainMenu {
 				telaProdutos.crud();
 				break;
 			case 2:
-				telaCompra.cadastrarCompra();
+				telaCompra.cadastrarCompra(); //Alterado Git
 				break;
 			case 3:
 				break;
@@ -35,10 +35,10 @@ public class MainMenu {
 				}
 				break;
 			case 5:
-				System.out.println("AtÈ Logo.");
+				System.out.println("At√© Logo.");
 				break;
 			default:
-				System.out.println("OpÁ„o inv·lida.");
+				System.out.println("Op√ß√£o inv√°lida.");
 				break;
 			}
 		}
