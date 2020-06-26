@@ -23,7 +23,7 @@ public class MainMenu {
 				telaProdutos.crud();
 				break;
 			case 2:
-				telaCompra.cadastrarCompra(); //Alterado Git
+				telaCompra.cadastrarCompra();
 				break;
 			case 3:
 				break;
