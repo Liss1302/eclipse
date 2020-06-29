@@ -47,12 +47,12 @@ public class Compra {
 	
 	@Override
 	public String toString() {
-		return "Compra [num=" + num + ", data=" + data + ", hora=" + hora + ", produto=" + produto.getCodigo() + ", quantidade="
+		return "Compra [num=" + num + ", data=" + data + ", hora=" + hora + ", produto=" + produto.getCodigo() + ", preco =" + produto.getPreco() + ", quantidade="
 				+ quantidade + "]";
 	}
 	
 	public String toCSV() {
-		return num + ";" + data + ";" + hora + ";" + produto.getCodigo() + ";" + quantidade + "\r\n";
+		return num + ";" + data + ";" + hora + ";" + produto.getCodigo() + ";" + produto.getPreco() + ";" + quantidade + "\r\n";
 	}
 
 }

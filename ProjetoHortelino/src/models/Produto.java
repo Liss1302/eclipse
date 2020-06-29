@@ -86,5 +86,18 @@ public class Produto {
 	public String toCSV() {
 		return codigo + ";" + nome + ";" + descricao + ";" + preco	+ ";" + quantidade + "\r\n";
 	}
+	
+	public boolean darBaixa(int quantidade) {
+		if(quantidade > this.quantidade) {
+			return false;
+		}else {
+			this.quantidade -= quantidade;
+			return true;
+		}
+	}
+	
+	public double getSubtotal() {
+		return this.preco * this.quantidade;
+	}
 
 }

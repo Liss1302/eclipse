@@ -13,7 +13,6 @@ import models.Produto;
 public class ProdutoDAO {
 
 	//DAO (Data Access Object = Objeto de Acesso a Dados)
-	
 	private Produto produto;
 	private BufferedReader br;
 	private BufferedWriter bw;

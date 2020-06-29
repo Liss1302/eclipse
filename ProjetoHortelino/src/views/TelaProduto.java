@@ -30,9 +30,16 @@ public class TelaProduto {
 			}
 			break;
 		case 2:
+			int totalQuantidade = 0;
+			double totalDinheiro = 0;
 			for (Produto p : ProcessaProduto.getProdutos()) {
-				System.out.println(p.toString());
+				System.out.print(p.toString());
+				System.out.printf("[subtotal = %.2f]\n",p.getSubtotal());
+				totalQuantidade +=p.getQuantidade();
+				totalDinheiro += p.getSubtotal();
 			}
+			System.out.println("[A quantidade de ítens no estoque é: "+totalQuantidade+"]");
+			System.out.printf("[O valor total do estoque é: R$%.2f\n",totalDinheiro);
 			break;
 		case 3:
 			System.out.println("Informe o código do produto a ser alterado:");
@@ -42,6 +49,7 @@ public class TelaProduto {
 				if (produto.getCodigo() == ProcessaProduto.getProdutos().get(i).getCodigo()) {
 					// Mostrar os dados atuais
 					System.out.println(ProcessaProduto.getProdutos().get(i).toString());
+					System.out.println("Digite: Nome, Descrição, Preço, Quantidade:");
 					// Ler os novos dados
 					produto.setNome(MainMenu.read.next());
 					produto.setDescricao(MainMenu.read.next());

@@ -19,6 +19,7 @@ public class CompraDAO {
 	private String arquivo = ".\\bd\\compras.csv";
 	private String[] campos;
 	
+	//Salva os dados de uma lista no arquivo
 	public boolean setCompras(ArrayList<Compra> compras) {
 		boolean retorno = false;
 		try {
@@ -34,6 +35,7 @@ public class CompraDAO {
 		return retorno;
 	}
 	
+	//Abre os dados do do arquivo e carrega em uma lista 
 	public ArrayList<Compra> getCompras(){
 		ArrayList<Compra> compras = new ArrayList<>();
 		try {

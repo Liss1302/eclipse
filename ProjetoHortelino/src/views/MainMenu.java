@@ -14,6 +14,7 @@ public class MainMenu {
 
 	public static void main(String[] args) {
 		ProcessaProduto.abrir();
+		ProcessaCompra.abrir();
 		while (menu != 5) {
 			System.out.println(
 					"\n1.Cadastro de Produtos\n2.Resgistrar Compras\n3.Conferir Caixa\n4.Salvar\n5.Sair do Sistema\n");
@@ -26,6 +27,7 @@ public class MainMenu {
 				telaCompra.cadastrarCompra();
 				break;
 			case 3:
+				telaCompra.conferirCaixa();
 				break;
 			case 4:
 				if(ProcessaProduto.salvar()&&ProcessaCompra.salvar()) {

@@ -7,7 +7,7 @@ import models.dao.ProdutoDAO;
 
 public class ProcessaProduto {
 
-	private static ArrayList<Produto> produtos = new ArrayList<>();;
+	private static ArrayList<Produto> produtos = new ArrayList<>();
 	private static ProdutoDAO pd = new ProdutoDAO();
 	
 	public static void abrir() {
