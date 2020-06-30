@@ -8,11 +8,12 @@ public class Produto {
 	private double preco;
 	private int quantidade;
 
-	
-	public Produto() {}
-	
-	public Produto(int codigo) {
+	public Produto() {
+	}
+
+	public Produto(int codigo, double preco) {
 		this.codigo = codigo;
+		this.preco = preco;
 	}
 
 	public int getCodigo() {
@@ -82,22 +83,30 @@ public class Produto {
 		return "Produto [codigo=" + codigo + ", nome=" + nome + ", descricao=" + descricao + ", preco=" + preco
 				+ ", quantidade=" + quantidade + "]";
 	}
-	
+
 	public String toCSV() {
-		return codigo + ";" + nome + ";" + descricao + ";" + preco	+ ";" + quantidade + "\r\n";
+		return codigo + ";" + nome + ";" + descricao + ";" + preco + ";" + quantidade + "\r\n";
 	}
-	
+
 	public boolean darBaixa(int quantidade) {
-		if(quantidade > this.quantidade) {
+		if (quantidade > this.quantidade) {
 			return false;
-		}else {
+		} else {
 			this.quantidade -= quantidade;
 			return true;
 		}
 	}
-	
+
 	public double getSubtotal() {
 		return this.preco * this.quantidade;
+	}
+
+	public String[] getStringVetor() {
+		return new String[] { codigo+"", nome, descricao, preco+"",quantidade+"",getSubtotal()+""};
+	}
+
+	public String cabecalho() {
+		return "Cód        Nome                                      Descrição                              Preço               Quantidade";
 	}
 
 }

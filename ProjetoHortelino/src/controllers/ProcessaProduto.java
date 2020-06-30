@@ -26,4 +26,12 @@ public class ProcessaProduto {
 		ProcessaProduto.produtos = produtos;
 	}
 	
+	//Retorna o código do produto adicionando 1 ao ultimo codigo da lista
+	public static int getAutoCodigo() {
+		if(ProcessaProduto.produtos.isEmpty())
+			return 1;
+		else
+			return ProcessaProduto.produtos.get(ProcessaProduto.produtos.size()-1).getCodigo()+1;
+	}
+	
 }

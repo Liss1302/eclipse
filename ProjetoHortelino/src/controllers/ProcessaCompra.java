@@ -26,4 +26,12 @@ public class ProcessaCompra {
 		ProcessaCompra.compras = compras;
 	}
 	
+	//Retorna o número da compra adicionando 1 ao ultimo número da lista
+	public static int getAutoNumero() {
+		if(ProcessaCompra.compras.isEmpty())
+			return 1;
+		else
+			return ProcessaCompra.compras.get(ProcessaCompra.compras.size()-1).getNum()+1;
+	}
+	
 }

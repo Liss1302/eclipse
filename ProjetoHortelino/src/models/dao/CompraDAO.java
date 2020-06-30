@@ -47,8 +47,8 @@ public class CompraDAO {
 					compra.setNum(Integer.parseInt(campos[0]));
 					compra.setData(campos[1]);
 					compra.setHora(campos[2]);
-					compra.setProduto(new Produto(Integer.parseInt(campos[3])));
-					compra.setQuantidade(Integer.parseInt(campos[4]));
+					compra.setProduto(new Produto(Integer.parseInt(campos[3]),Double.parseDouble(campos[4])));
+					compra.setQuantidade(Integer.parseInt(campos[5]));
 					compras.add(compra);
 					
 					linha = br.readLine();
