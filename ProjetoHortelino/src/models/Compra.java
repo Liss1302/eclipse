@@ -60,6 +60,7 @@ public class Compra {
 				+ ", preco =" + produto.getPreco() + ", quantidade=" + quantidade + "]";
 	}
 
+	//Metodo para enviar os dados para um arquivo de texto
 	public String toCSV() {
 		return num + ";" + data + ";" + hora + ";" + produto.getCodigo() + ";" + produto.getPreco() + ";" + quantidade
 				+ "\r\n";

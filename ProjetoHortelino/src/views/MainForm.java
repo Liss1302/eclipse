@@ -80,6 +80,8 @@ public class MainForm extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
+		
+		//Eu mudei (Well)
 		ProcessaProduto.abrir();
 		ProcessaCompra.abrir();
 		MainForm mf = new MainForm();
