@@ -68,7 +68,7 @@ public class Compra {
 
 	public String[] getStringVetor() {
 		return new String[] { "" + num, data, hora, "" + produto.getCodigo(), "" + produto.getPreco(), "" + quantidade,
-				"" + getSubtotal() };
+				String.format("%.2f", getSubtotal()) };
 	}
 
 	public String cabecalho() {

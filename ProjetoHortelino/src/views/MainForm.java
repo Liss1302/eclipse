@@ -30,11 +30,11 @@ public class MainForm extends JFrame implements ActionListener {
 		setTitle("Loja de Ferragens do Hortelino - Sistema de Compras");
 		setBounds(200, 100, 700, 500);
 		panel = new JPanel();
+		setJMenuBar(barraMenu);
 		setContentPane(panel);
 		setLayout(null);
 
 		// Barra de Menús
-		setJMenuBar(barraMenu);
 		menuArquivo = new JMenu("Arquivo");
 		menuSistema = new JMenu("Sistema");
 		barraMenu.add(menuArquivo);
@@ -60,6 +60,7 @@ public class MainForm extends JFrame implements ActionListener {
 		itemSair.addActionListener(this);
 	}
 
+	//Ações ao clicar nos ítens do menú.
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == itemProdutos) {
@@ -79,11 +80,12 @@ public class MainForm extends JFrame implements ActionListener {
 		}
 	}
 
+	//Método Main que  abre o Form principal e carrega os arquivos
 	public static void main(String[] args) {
-		
-		//Eu mudei (Well)
+		//Carrega os dados dos dois aqruivos
 		ProcessaProduto.abrir();
 		ProcessaCompra.abrir();
+		//Abre o formulário principal
 		MainForm mf = new MainForm();
 		mf.setVisible(true);
 	}

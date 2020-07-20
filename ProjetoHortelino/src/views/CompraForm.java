@@ -97,8 +97,8 @@ public class CompraForm extends JDialog implements ActionListener {
 				totItens += c.getQuantidade();
 				totDinheiro += c.getSubtotal();
 			}
-			tfTotalItens.setText(totItens + "");
-			tfTotalDinheiro.setText(totDinheiro + "");
+			tfTotalItens.setText(String.format("%d",totItens));
+			tfTotalDinheiro.setText(String.format("%.2f", totDinheiro));
 		}
 		table = new JTable(tableModel);
 		scroll = new JScrollPane(table);

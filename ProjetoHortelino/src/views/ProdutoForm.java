@@ -83,8 +83,8 @@ public class ProdutoForm extends JDialog implements ActionListener {
 				totItens += p.getQuantidade();
 				totDinheiro += p.getSubtotal();
 			}
-			tfTotalItens.setText(totItens+"");
-			tfTotalDinheiro.setText(totDinheiro+"");
+			tfTotalItens.setText(String.format("%d",totItens));
+			tfTotalDinheiro.setText(String.format("%.2f", totDinheiro));
 		}
 		table = new JTable(tableModel);
 		scroll = new JScrollPane(table);
