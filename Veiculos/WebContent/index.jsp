@@ -102,6 +102,7 @@
 				veiculos.remove(veiculos.indexOf(veiculo));
 				vd.save(veiculos);
 				out.print("Veículo removido com sucesso");
+				response.sendRedirect("#"); //Renova a página respondendo vazio #
 			}
 			%>
 
