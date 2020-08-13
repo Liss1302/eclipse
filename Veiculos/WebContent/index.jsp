@@ -16,8 +16,8 @@
 			type="text" size="10" name="marca" placeholder="MARCA" /> <input
 			type="text" size="10" name="modelo" placeholder="MODELO" /> <input
 			type="text" size="6" name="ano" placeholder="ANO" /> <input
-			type="text" size="7" name="km" placeholder="KM" />
-			<input type="submit" value="Enviar">
+			type="text" size="7" name="km" placeholder="KM" /> <input
+			type="submit" value="Enviar">
 	</form>
 	<table>
 		<thead>
@@ -50,7 +50,7 @@
 				km = Float.parseFloat(request.getParameter("km"));
 			}
 
-			//(CREATE) Cadastra um veículo no arquivo de Banco de Dados
+			//(CREATE UPDATE) Cadastra um veículo no arquivo de Banco de Dados
 			if (placa != null && modelo != null && marca != null && ano != 0 && km != 0) {
 				veiculo = new Veiculo(); //Novo objeto vazio
 				//Preencher o objeto configurando os dados recebido do front End
@@ -64,24 +64,44 @@
 					vd.save(veiculos);//Salvar a nova lista no arquivo
 					response.sendRedirect("#"); //Renova a página respondendo vazio #
 				} else {
-					out.print("Veículo já está cadastrado");
+					veiculos.set(veiculos.indexOf(veiculo), veiculo);
+					out.print("Veículo já está cadastrado e foi atualizado");
 				}
-
 			}
 
 			//(READ) Retorna todos ou só um veículo conforme a placa.
-			if (request.getParameter("placa") == null) {
+			if (placa == null) {
+				//Todos
 				for (Veiculo v : veiculos) {
-					out.print("<tr>" + v.toHTML() + "<td><input type='submit' value=' - '></td></tr>");
+					out.print("<tr>");//Inicio da linha da tabela
+					out.print(v.toHTML()); //Percorre toda a lista
+					out.print("<form method='POST'>");
+					out.print("<td><input type='hidden' name='delete' value='" + v.getPlaca() + "' ></td>");
+					out.print("<td><input type='submit' value=	' - '></td>");
+					out.print("</form>");
+					out.print("</tr>");//Fim da linha da tabela
 				}
 			} else {
 				veiculo = new Veiculo();
 				veiculo.setPlaca(request.getParameter("placa"));
 				if (veiculos.contains(veiculo)) {
-					out.print("<tr>" + veiculos.get(veiculos.indexOf(veiculo)).toHTML() + "</tr>");
+					//Só um
+					out.print("<tr>");
+					out.print(veiculos.get(veiculos.indexOf(veiculo)).toHTML());
+					out.print("<td><input type='submit' value=	' - '></td>");
+					out.print("</tr>");
 				} else {
 					out.print("Placa não encontrada.");
 				}
+			}
+
+			//(DELETE)
+			if (request.getParameter("delete") != null) {
+				veiculo = new Veiculo();
+				veiculo.setPlaca(request.getParameter("delete"));
+				veiculos.remove(veiculos.indexOf(veiculo));
+				vd.save(veiculos);
+				out.print("Veículo removido com sucesso");
 			}
 			%>
 

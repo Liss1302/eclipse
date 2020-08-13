@@ -71,12 +71,12 @@ public class Veiculo {
 		return true;
 	}
 
-	//Banco de Dados Local
+	//Banco de Dados Local (Arquivo de Texto)
 	public String toCSV() {
 		return placa + ";" + marca + ";" + modelo + ";" + ano + ";" + km + "\r\n";
 	}
 	
-	//Front End
+	//Front End (Colunas em uma tabela)
 	public String toHTML() {
 		return "<td>"+placa + "</td><td>" + marca + "</td><td>" + modelo + "</td><td>" + ano + "</td><td>" + String.format("%.1f", km) + "</td>";
 	}
