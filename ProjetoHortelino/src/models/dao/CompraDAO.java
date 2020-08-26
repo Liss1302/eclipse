@@ -20,7 +20,7 @@ public class CompraDAO {
 	private String[] campos;
 	
 	//Salva os dados de uma lista no arquivo
-	public boolean setCompras(ArrayList<Compra> compras) {
+	public boolean save(ArrayList<Compra> compras) {
 		boolean retorno = false;
 		try {
 			bw = new BufferedWriter(new FileWriter(arquivo,false));
@@ -36,7 +36,7 @@ public class CompraDAO {
 	}
 	
 	//Abre os dados do do arquivo e carrega em uma lista 
-	public ArrayList<Compra> getCompras(){
+	public ArrayList<Compra> open(){
 		ArrayList<Compra> compras = new ArrayList<>();
 		try {
 			br = new BufferedReader(new FileReader(arquivo));

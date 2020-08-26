@@ -13,7 +13,7 @@ import model.Sorteio;
 public class SorteioDAO {
 	private BufferedReader br;
 	private BufferedWriter bw;
-	private String path = "D:\\ARQUIVOS\\SENAI\\Planos_Ensino\\2020_2_Semestre\\PWBE\\workspace\\SorteioGrupos\\";
+	private String path = "E:\\eclipse\\git\\eclipse\\SorteioGrupos\\";
 	private String alunos = "bd\\alunos.csv";
 	private String temas = "bd\\temas.csv";
 	private String grupos = "bd\\grupos.csv";

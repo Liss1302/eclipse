@@ -1,6 +1,5 @@
 package views;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,10 +10,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JRootPane;
-
-import controllers.ProcessaCompra;
-import controllers.ProcessaProduto;
 
 public class MainForm extends JFrame implements ActionListener {
 
@@ -84,9 +79,6 @@ public class MainForm extends JFrame implements ActionListener {
 
 	//Método Main que  abre o Form principal e carrega os arquivos
 	public static void main(String[] args) {
-		//Carrega os dados dos dois aqruivos
-		ProcessaProduto.abrir();
-		ProcessaCompra.abrir();
 		//Abre o formulário principal
 		MainForm mf = new MainForm();
 		mf.setVisible(true);

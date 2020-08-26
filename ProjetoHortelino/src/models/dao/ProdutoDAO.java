@@ -19,7 +19,7 @@ public class ProdutoDAO {
 	private String arquivo = ".\\bd\\produtos.csv";
 	private String[] campos;
 	
-	public boolean setProdutos(ArrayList<Produto> produtos) {
+	public boolean save(ArrayList<Produto> produtos) {
 		boolean retorno = false;
 		try {
 			bw = new BufferedWriter(new FileWriter(arquivo,false));
@@ -34,7 +34,7 @@ public class ProdutoDAO {
 		return retorno;
 	}
 	
-	public ArrayList<Produto> getProdutos(){
+	public ArrayList<Produto> open(){
 		ArrayList<Produto> produtos = new ArrayList<>();
 		try {
 			br = new BufferedReader(new FileReader(arquivo));

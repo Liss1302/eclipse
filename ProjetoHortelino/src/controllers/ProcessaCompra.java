@@ -7,23 +7,16 @@ import models.dao.CompraDAO;
 
 public class ProcessaCompra {
 
-	private static ArrayList<Compra> compras = new ArrayList<>();
 	private static CompraDAO cd = new CompraDAO();
-	
-	public static void abrir() {
-		compras = cd.getCompras();
-	}
-	
-	public static boolean salvar() {
-		return cd.setCompras(compras);
-	}
-	
+	private static ArrayList<Compra> compras = cd.open();
+
 	public static ArrayList<Compra> getCompras() {
 		return compras;
 	}
 
 	public static void setCompras(ArrayList<Compra> compras) {
 		ProcessaCompra.compras = compras;
+		cd.save(compras);
 	}
 	
 	//Retorna o número da compra adicionando 1 ao ultimo número da lista

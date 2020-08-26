@@ -7,23 +7,16 @@ import models.dao.ProdutoDAO;
 
 public class ProcessaProduto {
 
-	private static ArrayList<Produto> produtos = new ArrayList<>();
 	private static ProdutoDAO pd = new ProdutoDAO();
-	
-	public static void abrir() {
-		produtos = pd.getProdutos();
-	}
-	
-	public static boolean salvar() {
-		return pd.setProdutos(produtos);
-	}
-	
+	private static ArrayList<Produto> produtos = pd.open();
+		
 	//GETs && SETs
 	public static ArrayList<Produto> getProdutos() {
 		return produtos;
 	}
 	public static void setProdutos(ArrayList<Produto> produtos) {
 		ProcessaProduto.produtos = produtos;
+		pd.save(produtos);
 	}
 	
 	//Retorna o código do produto adicionando 1 ao ultimo codigo da lista

@@ -14,11 +14,11 @@
 
 	<%
 		//Cabeçalho
+	Sorteio sorteio;
 	SorteioDAO sd = new SorteioDAO();
+	ArrayList<Sorteio> sorteios = new ArrayList<>();
 	ArrayList<String> alunos = sd.openAlunos();
 	ArrayList<String> temas = sd.openTemas();
-	ArrayList<Sorteio> sorteios = new ArrayList<>();
-	Sorteio sorteio;
 	%>
 
 	<table>

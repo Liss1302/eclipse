@@ -159,7 +159,7 @@ public class CompraForm extends JDialog implements ActionListener {
 					totDinheiro += compra.getSubtotal();
 					tfTotalItens.setText(totItens + "");
 					tfTotalDinheiro.setText(totDinheiro + "");
-					ProcessaProduto.salvar();
+					ProcessaProduto.setProdutos(ProcessaProduto.getProdutos());
 				} else {
 					JOptionPane.showMessageDialog(null, "Quantidade insuficiente no estoque");
 				}
@@ -188,7 +188,6 @@ public class CompraForm extends JDialog implements ActionListener {
 				compras.add(compra);
 			}
 			ProcessaCompra.setCompras(compras);
-			ProcessaCompra.salvar();
 			dispose();
 		}
 	}

@@ -168,7 +168,6 @@ public class ProdutoForm extends JDialog implements ActionListener {
 				produtos.add(produto);
 			}
 			ProcessaProduto.setProdutos(produtos);
-			ProcessaProduto.salvar();
 			dispose();
 		}
 	}
