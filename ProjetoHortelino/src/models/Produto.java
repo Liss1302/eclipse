@@ -102,7 +102,7 @@ public class Produto {
 	}
 
 	public String[] getStringVetor() {
-		return new String[] { codigo+"", nome, descricao, preco+"",quantidade+"",getSubtotal()+""};
+		return new String[] { codigo+"", nome, descricao, preco+"",quantidade+"",String.format("%.2f", getSubtotal())};
 	}
 
 	public String cabecalho() {

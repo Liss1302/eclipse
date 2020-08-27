@@ -28,8 +28,8 @@ public class ProdutoForm extends JDialog implements ActionListener {
 	private JLabel lbCabecalho = new JLabel(new Produto().cabecalho());
 	private JLabel lbTotalItens = new JLabel("Total de Ítens:");
 	private JLabel lbTotalDinheiro = new JLabel("Total em R$:");
-	private int codigo = ProcessaProduto.getAutoCodigo();
-	private JTextField tfCod = new JTextField(codigo);
+	private int codigo;
+	private JTextField tfCod = new JTextField();
 	private JTextField tfNome = new JTextField();
 	private JTextField tfDescricao = new JTextField();
 	private JTextField tfPreco = new JTextField();
@@ -37,8 +37,6 @@ public class ProdutoForm extends JDialog implements ActionListener {
 	private JTextField tfTotalItens = new JTextField();
 	private JTextField tfTotalDinheiro = new JTextField();
 	private Produto produto;
-	private int totItens = 0;
-	private double totDinheiro = 0;
 
 	ProdutoForm() {
 		// Propriedades do Formulário
@@ -47,7 +45,8 @@ public class ProdutoForm extends JDialog implements ActionListener {
 		panel = new JPanel();
 		setContentPane(panel);
 		setLayout(null);
-
+		codigo = ProcessaProduto.getAutoCodigo();
+		
 		// Label e TextFiels para Cadastro
 		lbCabecalho.setBounds(10, 10, 580, 20);
 		tfCod.setBounds(10, 30, 40, 25);
@@ -55,6 +54,7 @@ public class ProdutoForm extends JDialog implements ActionListener {
 		tfDescricao.setBounds(200, 30, 150, 25);
 		tfPreco.setBounds(350, 30, 80, 25);
 		tfQuantidade.setBounds(430, 30, 70, 25);
+		tfCod.setText(String.format("%d",codigo));
 		tfCod.setEnabled(false);
 		panel.add(lbCabecalho);
 		panel.add(tfCod);
@@ -80,11 +80,9 @@ public class ProdutoForm extends JDialog implements ActionListener {
 		if (!ProcessaProduto.getProdutos().isEmpty()) {
 			for (Produto p : ProcessaProduto.getProdutos()) {
 				tableModel.addRow(p.getStringVetor());
-				totItens += p.getQuantidade();
-				totDinheiro += p.getSubtotal();
 			}
-			tfTotalItens.setText(String.format("%d",totItens));
-			tfTotalDinheiro.setText(String.format("%.2f", totDinheiro));
+			tfTotalItens.setText(String.format("%d",ProcessaProduto.getTotalItens()));
+			tfTotalDinheiro.setText(String.format("%.2f", ProcessaProduto.getTotalDinheiro()));
 		}
 		table = new JTable(tableModel);
 		scroll = new JScrollPane(table);
@@ -140,10 +138,8 @@ public class ProdutoForm extends JDialog implements ActionListener {
 				tfDescricao.setText("");
 				tfPreco.setText("");
 				tfQuantidade.setText("");
-				totItens += produto.getQuantidade();
-				totDinheiro += produto.getSubtotal();
-				tfTotalItens.setText(totItens+"");
-				tfTotalDinheiro.setText(totDinheiro+"");
+				tfTotalItens.setText(String.format("%d",ProcessaProduto.getTotalItens()));
+				tfTotalDinheiro.setText(String.format("%.2f", ProcessaProduto.getTotalDinheiro()));
 			}
 
 		} else if (e.getSource() == btDel) {

@@ -33,8 +33,8 @@ public class CompraForm extends JDialog implements ActionListener {
 	private JLabel lbCabecalho = new JLabel(new Compra().cabecalho());
 	private JLabel lbTotalItens = new JLabel("Total de Ítens:");
 	private JLabel lbTotalDinheiro = new JLabel("Total em R$:");
-	private int numero = ProcessaCompra.getAutoNumero();
-	private JTextField tfNum = new JTextField(numero);
+	private int numero;
+	private JTextField tfNum = new JTextField();
 	private String hoje = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
 	private String agora = new SimpleDateFormat("hh:mm").format(new Date());
 	private JTextField tfData = new JTextField(hoje);
@@ -45,8 +45,6 @@ public class CompraForm extends JDialog implements ActionListener {
 	private JTextField tfTotalDinheiro = new JTextField();
 	private Compra compra;
 	private Produto produto;
-	private int totItens = 0;
-	private double totDinheiro = 0;
 
 	CompraForm() {
 		// Propriedades do Formulário
@@ -55,6 +53,7 @@ public class CompraForm extends JDialog implements ActionListener {
 		panel = new JPanel();
 		setContentPane(panel);
 		setLayout(null);
+		numero = ProcessaCompra.getAutoNumero();
 
 		// Label e TextFiels para Cadastro
 		lbCabecalho.setBounds(10, 10, 580, 20);
@@ -66,6 +65,7 @@ public class CompraForm extends JDialog implements ActionListener {
 		for (Produto p : ProcessaProduto.getProdutos()) {
 			cbProduto.addItem(p.getCodigo() + " " + p.getNome() + " " + p.getPreco());
 		}
+		tfNum.setText(String.format("%d",numero));
 		tfNum.setEnabled(false);
 		tfData.setEnabled(false);
 		tfHora.setEnabled(false);
@@ -94,11 +94,9 @@ public class CompraForm extends JDialog implements ActionListener {
 		if (!ProcessaCompra.getCompras().isEmpty()) {
 			for (Compra c : ProcessaCompra.getCompras()) {
 				tableModel.addRow(c.getStringVetor());
-				totItens += c.getQuantidade();
-				totDinheiro += c.getSubtotal();
 			}
-			tfTotalItens.setText(String.format("%d",totItens));
-			tfTotalDinheiro.setText(String.format("%.2f", totDinheiro));
+			tfTotalItens.setText(String.format("%d",ProcessaCompra.getTotalItens()));
+			tfTotalDinheiro.setText(String.format("%.2f", ProcessaCompra.getTotalDinheiro()));
 		}
 		table = new JTable(tableModel);
 		scroll = new JScrollPane(table);
@@ -155,10 +153,8 @@ public class CompraForm extends JDialog implements ActionListener {
 					tfData = new JTextField(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
 					tfHora = new JTextField(new SimpleDateFormat("hh:mm").format(new Date()));
 					tfQuantidade.setText("");
-					totItens += compra.getQuantidade();
-					totDinheiro += compra.getSubtotal();
-					tfTotalItens.setText(totItens + "");
-					tfTotalDinheiro.setText(totDinheiro + "");
+					tfTotalItens.setText(String.format("%d",ProcessaCompra.getTotalItens()));
+					tfTotalDinheiro.setText(String.format("%.2f", ProcessaCompra.getTotalDinheiro()));
 					ProcessaProduto.setProdutos(ProcessaProduto.getProdutos());
 				} else {
 					JOptionPane.showMessageDialog(null, "Quantidade insuficiente no estoque");

@@ -27,4 +27,20 @@ public class ProcessaCompra {
 			return ProcessaCompra.compras.get(ProcessaCompra.compras.size()-1).getNum()+1;
 	}
 	
+	public static int getTotalItens() {
+		int total = 0;
+		for (Compra c : compras) {
+			total += c.getQuantidade();
+		}
+		return total;
+	}
+
+	public static double getTotalDinheiro() {
+		double total = 0;
+		for (Compra c : compras) {
+			total += c.getSubtotal();
+		}
+		return total;
+	}
+
 }
