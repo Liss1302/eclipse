@@ -15,7 +15,7 @@ public class NotaDAO {
 	private Nota nota;
 	private BufferedReader br;
 	private BufferedWriter bw;
-	private String arquivo = "D:\\ARQUIVOS\\SENAI\\Planos_Ensino\\2020_2_Semestre\\PWBE\\workspace\\Notas\\bd\\notas.csv";
+	private String arquivo = "E:\\eclipse\\git\\eclipse\\Notas\\bd\\notas.csv";
 	private String[] campos;
 	
 	public boolean save(ArrayList<Nota> notas) {
