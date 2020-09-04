@@ -28,6 +28,7 @@ public class NotaServLetService extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		out = resp.getWriter();
-		out.print("Serviço Ativo");
+		out.print("Serviço Ativo, aceito qualquer VERBO");
 	}
+
 }
