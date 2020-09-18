@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import controllers.Mensagem;
 import model.Carteira;
 
 public class CarteiraDAO {
@@ -33,7 +34,7 @@ public class CarteiraDAO {
 			}
 			con.close();
 		} catch (SQLException e) {
-			System.out.println("Erro, conexão com o BD: "+e);
+			Mensagem.addMensagem("Erro, conexão com o BD: "+e);
 		}
 		return carteiras;
 	}
@@ -52,7 +53,7 @@ public class CarteiraDAO {
 				sucesso = true;
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro, conexão com o BD: "+e);
+			Mensagem.addMensagem("Erro, conexão com o BD: "+e);
 		}
 		return sucesso;
 	}

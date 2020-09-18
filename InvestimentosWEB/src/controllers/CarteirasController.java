@@ -16,7 +16,6 @@ public class CarteirasController {
 	}
 	public static void setCarteiras(ArrayList<Carteira> carteiras) {
 		CarteirasController.carteiras = carteiras;
-	}
-	
+	}	
 	
 }

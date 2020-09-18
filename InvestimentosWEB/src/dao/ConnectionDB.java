@@ -2,6 +2,9 @@ package dao;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
+import controllers.Mensagem;
+
 import java.sql.Connection;
 
 public class ConnectionDB {
@@ -20,7 +23,7 @@ public class ConnectionDB {
 			}
 			return con;
 		} catch (SQLException e) {
-			System.out.println("Erro ao conectar no BD: "+ e);
+			Mensagem.addMensagem("Erro ao conectar no BD: "+ e);
 			return null;
 		}
 	}

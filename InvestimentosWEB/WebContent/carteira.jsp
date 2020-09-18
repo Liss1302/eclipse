@@ -1,3 +1,4 @@
+<%@page import="controllers.Mensagem"%>
 <%@page import="controllers.CarteirasController"%>
 <%@page import="model.Carteira"%>
 <%@ page language="java" contentType="text/html; charset=UTF8"
@@ -9,6 +10,17 @@
 <title>Lista de Carteiras</title>
 </head>
 <body>
+	<div>
+		Mensagens do sistema:
+		<%
+			if (!Mensagem.getMensagens().isEmpty()) {
+				while (!Mensagem.getMensagens().isEmpty()) {
+					out.print(Mensagem.getMensagem());
+					out.print("<br/>");
+				}
+			}
+		%>
+	</div>
 	<table>
 		<thead>
 			<th>id Cliente</th>
@@ -31,15 +43,17 @@
 				<form method="POST" action="carteira">
 					<td>Id</td>
 					<td><input type="text" name="nome" placeholder="Nome" /></td>
-					<td><input type="number" name="lucro_esperado" placeholder="Lucro Esperado" /></td>
-					<td><input type="number" name="prejuiso_maximo" placeholder="Prejuizo Maximo" /></td>
+					<td><input type="number" name="lucro_esperado"
+						placeholder="Lucro Esperado" /></td>
+					<td><input type="number" name="prejuiso_maximo"
+						placeholder="Prejuizo Maximo" /></td>
 					<td><select name="perfil_investimento">
-						<option>Perfil de Investimento</option>
-						<option>Conservador</option>
-						<option>Moderado</option>
-						<option>Agressivo</option>						
+							<option>Perfil de Investimento</option>
+							<option>Conservador</option>
+							<option>Moderado</option>
+							<option>Agressivo</option>
 					</select></td>
-					<td><input type="submit" value="Cadastrar"/></td>
+					<td><input type="submit" value="Cadastrar" /></td>
 				</form>
 			</tr>
 		</tbody>

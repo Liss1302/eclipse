@@ -33,13 +33,14 @@ public class CarteiraServlet extends HttpServlet {
 			carteira.setPerfilDeInvestimento(req.getParameter("perfil_investimento"));
 			//Envia para o Banco de Dados através da Classe DAO
 			if(cd.cadastrar(carteira)) {
-				resp.sendRedirect("carteira.jsp");
+				Mensagem.addMensagem("Carteira cadastrada com sucesso.");
 			} else {
-				resp.sendRedirect("carteira.jsp?erro=EnviarParaBD");
+				Mensagem.addMensagem("Erro ao enviar ao Banco de Dados.");
 			}
 		} else {
-			resp.sendRedirect("carteira.jsp?erro=HaCamposEmBranco");
+			Mensagem.addMensagem("Favor preencher todos os campos.");
 		}
+		resp.sendRedirect("carteira.jsp");
 	}
 
 }
