@@ -7,7 +7,6 @@ create table Carteira(
     lucroEsperado decimal(8,2) not null,
     prejuizoMaximo decimal(8,2) not null,
     perfilDeInvestimento varchar(40) not null
-
 );
 create table Investimento(
     idCliente integer not null,

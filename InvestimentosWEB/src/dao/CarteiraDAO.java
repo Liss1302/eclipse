@@ -9,8 +9,13 @@ import java.util.ArrayList;
 import controllers.Mensagem;
 import model.Carteira;
 
-public class CarteiraDAO {
+/*Antes de manipular dados em um SGBD Banco de Dados nós utilizávamos arquivo CSV
+ * A classe DAO servida para abrir o arquivo (open) e salvar as modificações (save)
+ * Para utilizar um SGBD precisamos fazer um CRUD completo.
+ * INSERT, UPDATE e DELETE e para listar (read) utilizamos Queries SELECT*/
 
+public class CarteiraDAO {
+	
 	private ArrayList<Carteira> carteiras;
 	private Connection con;
 	private PreparedStatement ps;
@@ -34,7 +39,7 @@ public class CarteiraDAO {
 			}
 			con.close();
 		} catch (SQLException e) {
-			Mensagem.addMensagem("Erro, conexão com o BD: "+e);
+			Mensagem.addMensagem("Erro ao tentar listar todas: "+e);
 		}
 		return carteiras;
 	}
@@ -52,10 +57,48 @@ public class CarteiraDAO {
 			if (ps.executeUpdate() > 0) {
 				sucesso = true;
 			}
+			con.close();
 		} catch (SQLException e) {
-			Mensagem.addMensagem("Erro, conexão com o BD: "+e);
+			Mensagem.addMensagem("Erro ao tentar cadastrar: "+e);
 		}
 		return sucesso;
 	}
 
+	public boolean excluir(int id) {
+		boolean sucesso = false;
+		String sql = "delete from carteira where idCliente = ?";
+		con = ConnectionDB.getConnection();
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1,id);
+			if (ps.executeUpdate() > 0) {
+				sucesso = true;
+			}
+			con.close();
+		} catch (SQLException e) {
+			Mensagem.addMensagem("Erro, ao tentar excluir: "+e);
+		}
+		return sucesso;
+	}
+	
+	public boolean alterar(Carteira c) {
+		boolean sucesso = false;
+		String sql = "update carteira set nome = ?, lucroEsperado = ?, prejuizoMaximo = ?, perfilDeInvestimento =? where idCliente = ?";
+		con = ConnectionDB.getConnection();
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, c.getNome());
+			ps.setDouble(2, c.getLucroEsperado());
+			ps.setDouble(3, c.getPrejuisoMaximo());
+			ps.setString(4, c.getPerfilDeInvestimento());
+			ps.setInt(5,c.getId());
+			if (ps.executeUpdate() > 0) {
+				sucesso = true;
+			}
+			con.close();
+		} catch (SQLException e) {
+			Mensagem.addMensagem("Erro, ao tentar alterar: "+e);
+		}
+		return sucesso;
+	}
 }

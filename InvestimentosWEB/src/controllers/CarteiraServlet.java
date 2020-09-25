@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,26 +20,58 @@ public class CarteiraServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//Recebe os dados do formulário, verifica se não estão em branco
-		if (!req.getParameter("nome").isEmpty() && !req.getParameter("lucro_esperado").isEmpty()
-				&& !req.getParameter("prejuiso_maximo").isEmpty()
-				&& !req.getParameter("perfil_investimento").isEmpty()) {
-			//Preenche o Modelo
-			carteira = new Carteira();
-			carteira.setNome(req.getParameter("nome"));
-			carteira.setLucroEsperado(Double.parseDouble(req.getParameter("lucro_esperado")));
-			carteira.setPrejuisoMaximo(Double.parseDouble(req.getParameter("prejuiso_maximo")));
-			carteira.setPerfilDeInvestimento(req.getParameter("perfil_investimento"));
-			//Envia para o Banco de Dados através da Classe DAO
-			if(cd.cadastrar(carteira)) {
-				Mensagem.addMensagem("Carteira cadastrada com sucesso.");
-			} else {
-				Mensagem.addMensagem("Erro ao enviar ao Banco de Dados.");
+		if (req.getParameter("acao") != null) {
+			switch (req.getParameter("acao")) {
+			case "insert":
+				// Recebe os dados do formulário, verifica se não estão em branco
+				if (!req.getParameter("nome").isEmpty() && !req.getParameter("lucro_esperado").isEmpty()
+						&& !req.getParameter("prejuiso_maximo").isEmpty()
+						&& !req.getParameter("perfil_investimento").equals("Perfil de Investimento")) {
+					// Preenche o Modelo
+					carteira = new Carteira();
+					carteira.setNome(req.getParameter("nome"));
+					carteira.setLucroEsperado(Double.parseDouble(req.getParameter("lucro_esperado")));
+					carteira.setPrejuisoMaximo(Double.parseDouble(req.getParameter("prejuiso_maximo")));
+					carteira.setPerfilDeInvestimento(req.getParameter("perfil_investimento"));
+					// Envia para o Banco de Dados através da Classe DAO
+					if (cd.cadastrar(carteira)) {
+						Mensagem.addMensagem("Carteira cadastrada com sucesso.");
+					}
+				} else {
+					Mensagem.addMensagem("Favor preencher todos os campos.");
+				}
+				break;
+			case "update":
+				if (!req.getParameter("id").isEmpty() && !req.getParameter("nome").isEmpty()
+						&& !req.getParameter("lucro_esperado").isEmpty()
+						&& !req.getParameter("prejuiso_maximo").isEmpty()
+						&& !req.getParameter("perfil_investimento").equals("Perfil de Investimento")) {
+					// Preenche o Modelo
+					carteira = new Carteira();
+					carteira.setId(Integer.parseInt(req.getParameter("id")));
+					carteira.setNome(req.getParameter("nome"));
+					carteira.setLucroEsperado(Double.parseDouble(req.getParameter("lucro_esperado")));
+					carteira.setPrejuisoMaximo(Double.parseDouble(req.getParameter("prejuiso_maximo")));
+					carteira.setPerfilDeInvestimento(req.getParameter("perfil_investimento"));
+					// Envia para o Banco de Dados através da Classe DAO
+					if (cd.cadastrar(carteira)) {
+						Mensagem.addMensagem("Carteira atualizada com sucesso.");
+					}
+				}
+				Mensagem.addMensagem("Ainda em construção.");
+				break;
+			case "delete":
+				int id = Integer.parseInt(req.getParameter("id"));
+				if (cd.excluir(id)) {
+					Mensagem.addMensagem("Excluído com sucesso o id = " + id);
+				}
+				break;
+			default:
+				Mensagem.addMensagem("Ação inválida.");
+				break;
 			}
-		} else {
-			Mensagem.addMensagem("Favor preencher todos os campos.");
+			resp.sendRedirect("carteira.jsp");
 		}
-		resp.sendRedirect("carteira.jsp");
 	}
 
 }
