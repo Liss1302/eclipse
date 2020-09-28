@@ -1,5 +1,5 @@
 drop database if exists investimentos;
-create database investimentos;
+create database investimentos  CHARACTER SET utf8 COLLATE utf8_general_ci;
 use investimentos;
 create table Carteira(
     idCliente integer primary key auto_increment not null,
@@ -26,10 +26,10 @@ create table Investimento(
 );
 
 insert into Carteira values
-(default,"Maria José",15.00,5.00,"Conservador"),
-(default,"Jose Maria",15.00,8.00,"Agressivo"),
-(default,"Marta Silva",15.00,5.00,"Moderado"),
-(default,"Zelia Ferreira",20.00,10.00,"Moderado");
+(default,"Maria José",15000.00,5000.00,"Conservador"),
+(default,"Jose Maria",15000.00,8000.00,"Agressivo"),
+(default,"Marta Silva",150000.00,5000.00,"Moderado"),
+(default,"Zelia Ferreira",20000.00,10000.00,"Moderado");
 
 insert into Investimento values 
 (1,default,"PSD3","2020/01/22","2020/06/25",13.44,20,12.83,12.10),
@@ -71,7 +71,7 @@ FROM investimento
 GROUP BY idCliente;
 
 insert into carteira values
-(default,"Cuca Marvado",1000,500,"Agrecivo");
+(default,"Cuca Marvado",1000,500,"Agressivo");
 
 insert into investimento values
 (5,default,"LAME4",curdate(),null,30.15,100,30.15,null);

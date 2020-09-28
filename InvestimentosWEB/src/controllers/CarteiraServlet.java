@@ -54,11 +54,10 @@ public class CarteiraServlet extends HttpServlet {
 					carteira.setPrejuisoMaximo(Double.parseDouble(req.getParameter("prejuiso_maximo")));
 					carteira.setPerfilDeInvestimento(req.getParameter("perfil_investimento"));
 					// Envia para o Banco de Dados através da Classe DAO
-					if (cd.cadastrar(carteira)) {
+					if (cd.alterar(carteira)) {
 						Mensagem.addMensagem("Carteira atualizada com sucesso.");
 					}
 				}
-				Mensagem.addMensagem("Ainda em construção.");
 				break;
 			case "delete":
 				int id = Integer.parseInt(req.getParameter("id"));
@@ -67,7 +66,7 @@ public class CarteiraServlet extends HttpServlet {
 				}
 				break;
 			default:
-				Mensagem.addMensagem("Ação inválida.");
+				Mensagem.addMensagem("Ação indefinida.");
 				break;
 			}
 			resp.sendRedirect("carteira.jsp");
