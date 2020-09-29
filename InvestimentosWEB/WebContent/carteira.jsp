@@ -1,12 +1,12 @@
 <%@page import="controllers.Mensagem"%>
 <%@page import="controllers.CarteirasController"%>
 <%@page import="model.Carteira"%>
-<%@ page language="java" contentType="text/html; charset=UTF8"
-	pageEncoding="UTF8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF8">
+<meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="estilo.css" />
 <title>Lista de Carteiras</title>
 </head>
@@ -112,7 +112,7 @@
 			"<form method='post' action='carteira' id='form-del'>"+
 			"<input type='hidden' name='acao' value='delete' />"+
 			"<input type='hidden' name='id' value='" + elemento.parentNode.parentNode.parentNode.cells[0] +"' />"+
-			"<input type='button' onclick='confimaExclusao()' value='Excluir'/>"+
+			"<input type='button' onclick='confimaExclusao(this)' value='Excluir'/>"+
 			"</form>"+
 			"<input type='button' value='Alterar' onclick='alterar(this)'/>"+
 			"</center>";

@@ -20,6 +20,7 @@ public class CarteiraServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
 		if (req.getParameter("acao") != null) {
 			switch (req.getParameter("acao")) {
 			case "insert":
