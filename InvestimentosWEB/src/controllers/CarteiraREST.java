@@ -65,7 +65,7 @@ public class CarteiraREST extends HttpServlet {
 			carteira.setPerfilDeInvestimento(req.getParameter("perfil_investimento"));
 			// Envia para o Banco de Dados através da Classe DAO
 			if (cd.alterar(carteira)) {
-				Mensagem.addMensagem("Carteira atualizada com sucesso.");
+				Mensagem.addMensagem("Carteira "+carteira.getId()+" atualizada com sucesso.");
 			}
 		}
 	}
@@ -75,7 +75,7 @@ public class CarteiraREST extends HttpServlet {
 		if (req.getParameter("id") != null) {
 			int id = Integer.parseInt(req.getParameter("id"));
 			if (cd.excluir(id)) {
-				Mensagem.addMensagem("Excluído com sucesso o id = " + id);
+				Mensagem.addMensagem("A carteira "+id+" foi excluída com sucesso.");
 			}
 		} else {
 			Mensagem.addMensagem("Favor enviar o id do Cliente.");
