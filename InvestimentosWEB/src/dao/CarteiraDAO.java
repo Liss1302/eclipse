@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import controllers.Mensagem;
-import model.Carteira;
+import models.Carteira;
 
 /*Antes de manipular dados em um SGBD Banco de Dados nós utilizávamos arquivo CSV
  * A classe DAO servida para abrir o arquivo (open) e salvar as modificações (save)

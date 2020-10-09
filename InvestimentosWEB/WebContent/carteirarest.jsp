@@ -1,6 +1,6 @@
 <%@page import="controllers.Mensagem"%>
-<%@page import="controllers.CarteirasController"%>
-<%@page import="model.Carteira"%>
+<%@page import="controllers.CarteiraSERVLET"%>
+<%@page import="models.Carteira"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!DOCTYPE html>
@@ -13,6 +13,7 @@
 <body>
 	<div class="tableResult">
 		<table>
+			<!-- (READ) Tabela para listar os dados lidos no Banco de Dados -->
 			<thead>
 				<tr>
 					<th>id Cliente</th>
@@ -25,10 +26,10 @@
 			</thead>
 			<tbody>
 				<%
-					for (Carteira c : CarteirasController.getCarteiras()) {
+					for (Carteira c : CarteiraSERVLET.getCarteiras()) {
 					out.print("<tr>");
 					out.print(c.toHTML());
-					out.print("<td>");
+					out.print("<td>");//Coluna da tabela para os botões (UPDATE) e (DELETE)
 					out.print("<input type='button' onclick='excluir(this)' value='Excluir'/>");
 					out.print("<input type='button' onclick='alterar(this)' value='Alterar'/>");
 					out.print("</td>");
@@ -39,6 +40,7 @@
 		</table>
 	</div>
 	<div class="form1">
+		<!-- (CREATE) Formulário para cadastro de novas Carteiras -->
 		<form method="POST" action="carteirarest">
 			<input type="text" name="nome" placeholder="Nome" /> <input
 				type="number" name="lucro_esperado" placeholder="Lucro Esperado" />
@@ -52,60 +54,16 @@
 		</form>
 	</div>
 	<div class="mensagem" id="msg">
+		<!-- Espaço reservado para menságens do sistema que desaparecem após 3 segundos -->
 		<%
 			if (!Mensagem.getMensagens().isEmpty())
 			while (!Mensagem.getMensagens().isEmpty())
-				out.print("<p>"+Mensagem.getMensagem()+"</p>");
-			else out.print("<p>Mensagens do sistema:</p>");
+				out.print("<p>" + Mensagem.getMensagem() + "</p>");
+		else
+			out.print("<p>Mensagens do sistema:</p>");
 		%>
 		<script>setTimeout(() => {document.getElementById("msg").style.display="none"}, 3000);</script>
 	</div>
-	<script>
-		function excluir(elemento) {
-			if (window.confirm("Confirma Exclusão?")) {
-				let xhr = new XMLHttpRequest();
-				let id = elemento.parentNode.parentNode.cells[0].innerText;
-				xhr.addEventListener("readystatechange", function() {
-					if (this.readyState === this.DONE) {
-						window.location.reload();
-					}
-				});
-				let url = "carteirarest?id=" + id;
-				xhr.open("DELETE", url);
-				xhr.send();
-			}
-		}
-		function alterar(elemento) {
-			elemento.parentNode.parentNode.cells[1].setAttribute(
-					"contenteditable", "true");
-			elemento.parentNode.parentNode.cells[2].setAttribute(
-					"contenteditable", "true");
-			elemento.parentNode.parentNode.cells[3].setAttribute(
-					"contenteditable", "true");
-			elemento.parentNode.parentNode.cells[4].setAttribute(
-					"contenteditable", "true");
-			elemento.parentNode.parentNode.cells[5].innerHTML = "<input type='button' value=' Concluir ' onclick='concluirEdicao(this)'/>";
-		}
-		function concluirEdicao(elemento) {
-			let id = "?id=" + elemento.parentNode.parentNode.cells[0].innerText;
-			let nome = "&nome="
-					+ elemento.parentNode.parentNode.cells[1].innerText;
-			let lucro = "&lucro_esperado="
-					+ elemento.parentNode.parentNode.cells[2].innerText;
-			let prejuiso = "&prejuiso_maximo="
-					+ elemento.parentNode.parentNode.cells[3].innerText;
-			let perfil = "&perfil_investimento="
-					+ elemento.parentNode.parentNode.cells[4].innerText;
-			let xhr = new XMLHttpRequest();
-			xhr.addEventListener("readystatechange", function() {
-				if (this.readyState === this.DONE) {
-					window.location.reload();
-				}
-			});
-			let url = "carteirarest" + id + nome + lucro + prejuiso + perfil;
-			xhr.open("PUT", url);
-			xhr.send();
-		}
-	</script>
+	<script src="carteirarest.js"></script>
 </body>
 </html>

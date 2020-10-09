@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,15 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.CarteiraDAO;
-import model.Carteira;
+import models.Carteira;
 
 @WebServlet("/carteirarest")
-public class CarteiraREST extends HttpServlet {
+public class CarteiraSERVLET extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private Carteira carteira;
-	private CarteiraDAO cd = new CarteiraDAO();
-
+	private static CarteiraDAO cd = new CarteiraDAO();
+	private static ArrayList<Carteira> carteiras = cd.listarTodas();
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String url = "carteirarest";
@@ -80,5 +82,10 @@ public class CarteiraREST extends HttpServlet {
 		} else {
 			Mensagem.addMensagem("Favor enviar o id do Cliente.");
 		}
+	}
+	
+	public static ArrayList<Carteira> getCarteiras() {
+		carteiras = cd.listarTodas();
+		return carteiras;
 	}
 }
