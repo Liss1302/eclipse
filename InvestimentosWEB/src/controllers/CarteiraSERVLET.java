@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,30 +8,82 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import dao.CarteiraDAO;
 import models.Carteira;
 
 @WebServlet("/carteirarest")
 public class CarteiraSERVLET extends HttpServlet {
 
+	/*
+	 * Este SERVLET ele passa a responder requisições REST FULL o SERVLET fica na
+	 * camada Controller MVC pois possui o comportamento de intermediário, ou seja
+	 * atender as requisições do FrontEnd que está na camada View.
+	 */
+
 	private static final long serialVersionUID = 1L;
 	private Carteira carteira;
 	private static CarteiraDAO cd = new CarteiraDAO();
-	private static ArrayList<Carteira> carteiras = cd.listarTodas();
-	
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String url = "carteirarest";
-		resp.setStatus(HttpServletResponse.SC_OK);
-		resp.setContentType("text/html");
+		/*
+		 * O método doGet responde ao vebo GET listando toda a tabela de Carteiras ou
+		 * apenas uma. Tem o comportamento de READ em um CRUD
+		 */
+		String url = "carteirarest"; // É o caminho para onde a resp será enviada
+		JSONArray jarray = new JSONArray(); // Um vetor de JSONs
+		JSONObject jobjt; // Um objeto JSON
+
+		// Confiruração das respostas da API
+		resp.setStatus(HttpServletResponse.SC_OK); // Retorna sucesso com o códifo 200
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("application/json"); //
 		resp.setHeader("Location", url);
-		resp.getWriter().print("Sevlet pronto para atender requisições REST");
+		if (req.getParameter("id") == null) {
+			// Laço que percorre a lista de Carteiras e preenche o Vetor
+			for (Carteira c : cd.listarTodas()) {
+				jobjt = new JSONObject();
+				jobjt.put("id", c.getId());
+				jobjt.put("nome", c.getNome());
+				jobjt.put("lucroEsperado", c.getLucroEsperado());
+				jobjt.put("prejuisoMaximo", c.getPrejuisoMaximo());
+				jobjt.put("perfilDeInvestimento", c.getPerfilDeInvestimento());
+				jarray.put(jobjt);
+			}
+			resp.getWriter().print(jarray.toString());
+		} else {
+			jobjt = new JSONObject();
+			boolean encontrado = false;
+			// Laço que percorre a lista de Carteiras e preenche o Vetor
+			for (Carteira c : cd.listarTodas()) {
+				if (req.getParameter("id").equals(String.format("%d", c.getId()))) {
+					jobjt.put("id", c.getId());
+					jobjt.put("nome", c.getNome());
+					jobjt.put("lucroEsperado", c.getLucroEsperado());
+					jobjt.put("prejuisoMaximo", c.getPrejuisoMaximo());
+					jobjt.put("perfilDeInvestimento", c.getPerfilDeInvestimento());
+					resp.getWriter().print(jobjt.toString());
+					encontrado = true;
+				}
+			}
+			if (!encontrado) {
+				jobjt.put("erro", "Id não encontrado");
+				resp.getWriter().print(jobjt.toString());
+			}
+		}
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-		//Valida se os campos não estão em branco
+		/*
+		 * O método doPost cria uma nova carteira com os dados recebido via POST, Tem o
+		 * comportamento de CREATE em um CRUD
+		 */
+		req.setCharacterEncoding("UTF-8"); // Configura o CHARSET correto
+		// Valida se os campos não estão em branco
 		if (!req.getParameter("nome").isEmpty() && !req.getParameter("lucro_esperado").isEmpty()
 				&& !req.getParameter("prejuiso_maximo").isEmpty()
 				&& !req.getParameter("perfil_investimento").equals("Perfil de Investimento")) {
@@ -54,7 +105,11 @@ public class CarteiraSERVLET extends HttpServlet {
 
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//Valida se os campos não estão em branco
+		/*
+		 * O método doPut serve para atualização de dados, Possui o comportamento de
+		 * UPDATE em um CRUD
+		 */
+		// Valida se os campos não estão em branco
 		if (!req.getParameter("id").isEmpty() && !req.getParameter("nome").isEmpty()
 				&& !req.getParameter("lucro_esperado").isEmpty() && !req.getParameter("prejuiso_maximo").isEmpty()
 				&& !req.getParameter("perfil_investimento").equals("Perfil de Investimento")) {
@@ -67,25 +122,24 @@ public class CarteiraSERVLET extends HttpServlet {
 			carteira.setPerfilDeInvestimento(req.getParameter("perfil_investimento"));
 			// Envia para o Banco de Dados através da Classe DAO
 			if (cd.alterar(carteira)) {
-				Mensagem.addMensagem("Carteira "+carteira.getId()+" atualizada com sucesso.");
+				Mensagem.addMensagem("Carteira " + carteira.getId() + " atualizada com sucesso.");
 			}
 		}
 	}
 
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		/*
+		 * O método doDelete recebe os dados pelo verbo DELETE e faz a exclusão, possui
+		 * o comportamento de DELETE em um CRUD
+		 */
 		if (req.getParameter("id") != null) {
 			int id = Integer.parseInt(req.getParameter("id"));
 			if (cd.excluir(id)) {
-				Mensagem.addMensagem("A carteira "+id+" foi excluída com sucesso.");
+				Mensagem.addMensagem("A carteira " + id + " foi excluída com sucesso.");
 			}
 		} else {
 			Mensagem.addMensagem("Favor enviar o id do Cliente.");
 		}
-	}
-	
-	public static ArrayList<Carteira> getCarteiras() {
-		carteiras = cd.listarTodas();
-		return carteiras;
 	}
 }

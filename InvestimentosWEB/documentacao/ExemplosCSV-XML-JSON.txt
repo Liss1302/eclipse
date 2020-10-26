@@ -1,0 +1,21 @@
+CSV
+nome;idade
+Ana;12
+Roberto;15
+Mariana;13
+
+xml
+<pessoa>
+	<nome>Ana</nome>
+	<idade>12</idade>
+</pessoa>
+<pessoa>
+	<nome>Roberto</nome>
+	<idade>15</idade>
+</pessoa>
+
+JSONObject
+{"nome":"Ana", "idade":12}
+
+JSONArray
+[{"nome":"Ana", "idade":12},{"nome":"Roberto", "idade":15},{"nome":"Mariana", "idade":13}]

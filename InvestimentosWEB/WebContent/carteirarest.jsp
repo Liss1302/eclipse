@@ -1,6 +1,4 @@
 <%@page import="controllers.Mensagem"%>
-<%@page import="controllers.CarteiraSERVLET"%>
-<%@page import="models.Carteira"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!DOCTYPE html>
@@ -10,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="estilo.css" />
 <title>Lista de Carteiras</title>
 </head>
-<body>
+<body id="corpoPagina">
 	<div class="tableResult">
 		<table>
 			<!-- (READ) Tabela para listar os dados lidos no Banco de Dados -->
@@ -24,18 +22,7 @@
 					<th>Ações</th>
 				</tr>
 			</thead>
-			<tbody>
-				<%
-					for (Carteira c : CarteiraSERVLET.getCarteiras()) {
-					out.print("<tr>");
-					out.print(c.toHTML());
-					out.print("<td>");//Coluna da tabela para os botões (UPDATE) e (DELETE)
-					out.print("<input type='button' onclick='excluir(this)' value='Excluir'/>");
-					out.print("<input type='button' onclick='alterar(this)' value='Alterar'/>");
-					out.print("</td>");
-					out.print("</tr>");
-				}
-				%>
+			<tbody id="corpoTabela">
 			</tbody>
 		</table>
 	</div>

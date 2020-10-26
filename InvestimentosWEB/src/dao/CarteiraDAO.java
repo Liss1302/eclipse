@@ -9,26 +9,29 @@ import java.util.ArrayList;
 import controllers.Mensagem;
 import models.Carteira;
 
-/*Antes de manipular dados em um SGBD Banco de Dados nós utilizávamos arquivo CSV
- * A classe DAO servida para abrir o arquivo (open) e salvar as modificações (save)
+/*
+ * DAO (Data Access Object) ou Objeto de acesso a dados
+ * Antes de manipular dados em um SGBD Banco de Dados nós utilizávamos arquivos CSV
+ * A classe DAO servia somente para abrir o arquivo (open) e salvar as modificações (save)
  * Para utilizar um SGBD precisamos fazer um CRUD completo.
- * INSERT, UPDATE e DELETE e para listar (read) utilizamos Queries SELECT*/
+ * INSERT, UPDATE e DELETE e para listar (read) utilizamos Queries SELECT
+ * */
 
 public class CarteiraDAO {
-	
+
 	private ArrayList<Carteira> carteiras;
 	private Connection con;
 	private PreparedStatement ps;
 	private Carteira carteira;
-	
-	public ArrayList<Carteira> listarTodas(){
-		carteiras = new ArrayList<>(); //Cria uma lisa vazia
+
+	public ArrayList<Carteira> listarTodas() {
+		carteiras = new ArrayList<>(); // Cria uma lisa vazia
 		String query = "Select * from carteira";
 		con = ConnectionDB.getConnection(); // Obtem conexão
 		try {
-			ps = con.prepareStatement(query); //Prepara a Query
-			ResultSet rs = ps.executeQuery(); //Executa a Query
-			while(rs.next()) {
+			ps = con.prepareStatement(query); // Prepara a Query
+			ResultSet rs = ps.executeQuery(); // Executa a Query
+			while (rs.next()) {
 				carteira = new Carteira();
 				carteira.setId(rs.getInt("idCliente"));
 				carteira.setNome(rs.getString("nome"));
@@ -39,11 +42,11 @@ public class CarteiraDAO {
 			}
 			con.close();
 		} catch (SQLException e) {
-			Mensagem.addMensagem("Erro ao tentar listar todas: "+e);
+			Mensagem.addMensagem("Erro ao tentar listar todas: " + e);
 		}
 		return carteiras;
 	}
-	
+
 	public boolean cadastrar(Carteira c) {
 		boolean sucesso = false;
 		String sql = "insert into carteira values (default,?,?,?,?)";
@@ -59,7 +62,7 @@ public class CarteiraDAO {
 			}
 			con.close();
 		} catch (SQLException e) {
-			Mensagem.addMensagem("Erro ao tentar cadastrar: "+e);
+			Mensagem.addMensagem("Erro ao tentar cadastrar: " + e);
 		}
 		return sucesso;
 	}
@@ -70,17 +73,17 @@ public class CarteiraDAO {
 		con = ConnectionDB.getConnection();
 		try {
 			ps = con.prepareStatement(sql);
-			ps.setInt(1,id);
+			ps.setInt(1, id);
 			if (ps.executeUpdate() > 0) {
 				sucesso = true;
 			}
 			con.close();
 		} catch (SQLException e) {
-			Mensagem.addMensagem("Erro, ao tentar excluir: "+e);
+			Mensagem.addMensagem("Erro, ao tentar excluir: " + e);
 		}
 		return sucesso;
 	}
-	
+
 	public boolean alterar(Carteira c) {
 		boolean sucesso = false;
 		String sql = "update carteira set nome = ?, lucroEsperado = ?, prejuizoMaximo = ?, perfilDeInvestimento =? where idCliente = ?";
@@ -91,13 +94,13 @@ public class CarteiraDAO {
 			ps.setDouble(2, c.getLucroEsperado());
 			ps.setDouble(3, c.getPrejuisoMaximo());
 			ps.setString(4, c.getPerfilDeInvestimento());
-			ps.setInt(5,c.getId());
+			ps.setInt(5, c.getId());
 			if (ps.executeUpdate() > 0) {
 				sucesso = true;
 			}
 			con.close();
 		} catch (SQLException e) {
-			Mensagem.addMensagem("Erro, ao tentar alterar: "+e);
+			Mensagem.addMensagem("Erro, ao tentar alterar: " + e);
 		}
 		return sucesso;
 	}

@@ -7,6 +7,7 @@ public class Carteira {
 	private double lucroEsperado, prejuisoMaximo;
 	private String perfilDeInvestimento;
 	
+	//Métodos GETs && SETs
 	public int getId() {
 		return id;
 	}
@@ -38,9 +39,16 @@ public class Carteira {
 		this.perfilDeInvestimento = perfilDeInvestimento;
 	}
 	
+	//Metodo de Exemplo, sobre como configurar uma saída HTML
 	public String toHTML() {
 		return "<td>" + id + "</td><td>" + nome + "</td><td>" + lucroEsperado + "</td><td>"
 				+ prejuisoMaximo + "</td><td>" + perfilDeInvestimento + "</td>";
 	}
 	
+	//Metodo de Exemplo, sobre como configurar um JSON Object manualmente
+	public String toJSON() {
+		return "{\"id\":"+ id + ",\"nome\":" + nome + ",\"LucroEsperado\":" + lucroEsperado +
+				",\"prejuisoMaximo\":"+ prejuisoMaximo + ",\"perfilDeInvestimento\":\"" +
+				perfilDeInvestimento + "\"}";
+	}
 }

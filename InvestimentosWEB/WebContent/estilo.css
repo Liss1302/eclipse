@@ -49,6 +49,12 @@
 	border-radius: 5px;
 }
 
+.tableResult td button {
+	padding: 10px;
+	width: 50%;
+	border-radius: 5px;
+}
+
 .form1 {
 	justify-content: center;
 	align-items: center;
